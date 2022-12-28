@@ -27,4 +27,42 @@ plannerRouter.get("/", async (req, res, next) => {
   }
 });
 
+plannerRouter.get("/:id", async (req, res, next) => {
+  try {
+    const Planners = await getPlanners();
+    const id = req.params.id;
+    const foundPlanner = Planners.find((planner) => planner.id === id);
+    res.status(200).send(foundPlanner);
+  } catch (error) {
+    next(error);
+  }
+});
+
+plannerRouter.put("/:id", async (req, res, next) => {
+  try {
+    const Planners = await getPlanners();
+    const id = req.params.id;
+    const initialPlannerIndex = Planners.findIndex((planner) => planner.id === id);
+    const initialPlanner = Planners[initialPlannerIndex];
+    const updatedPlanner = { ...initialPlanner, ...req.body, updatedAt: new Date() };
+    Planners[initialPlannerIndex] = updatedPlanner;
+    writePlanners(Planners);
+    res.status(200).send(updatedPlanner);
+  } catch (error) {
+    next(error);
+  }
+});
+
+plannerRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const Planners = await getPlanners();
+    const id = req.params.id;
+    const remainingPlanners = Planners.filter((planners) => planners.id !== id);
+    writePlanners(remainingPlanners);
+    res.status(200).send(remainingPlanners);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export default plannerRouter;
