@@ -1,10 +1,11 @@
 import express from "express";
 import uniqid from "uniqid";
 import { getPlanners, writePlanners } from "../../library/fs-tools.js";
+import { checkPlannerSchema, detectBadRequest } from "./validator.js";
 
 const plannerRouter = express.Router();
 
-plannerRouter.post("/", async (req, res, next) => {
+plannerRouter.post("/", checkPlannerSchema, detectBadRequest, async (req, res, next) => {
   try {
     const newPlanner = { ...req.body, id: uniqid(), createdAt: new Date(), updatedAt: new Date() };
     const Planners = await getPlanners();
