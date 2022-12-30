@@ -10,7 +10,29 @@ const plannerSchema = {
   },
 };
 
+const taskSchema = {
+  content: {
+    in: ["body"],
+    isString: {
+      errorMessage: "content not specified",
+    },
+  },
+  done: {
+    in: ["body"],
+    isBoolean: {
+      errorMessage: "done not specified",
+    },
+  },
+  // plannerId: {
+  //   in: ["body"],
+  //   isString: {
+  //     errorMessage: "plannerId not specified",
+  //   },
+  // },
+};
+
 export const checkPlannerSchema = checkSchema(plannerSchema);
+export const checkTasksSchema = checkSchema(taskSchema);
 
 export const detectBadRequest = (req, res, next) => {
   const possibleErrors = validationResult(req);
