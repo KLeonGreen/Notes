@@ -27,7 +27,8 @@ taskRouter.post("/:id", checkTasksSchema, detectBadRequest, async (req, res, nex
 taskRouter.get("/", async (req, res, next) => {
   try {
     const tasks = await getTasks();
-    res.status(200).send(tasks);
+    const undoneTask = tasks.filter((task) => task.done === false);
+    res.status(200).send(undoneTask);
   } catch (error) {
     next(error);
   }

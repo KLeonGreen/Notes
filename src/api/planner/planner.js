@@ -7,7 +7,7 @@ const plannerRouter = express.Router();
 
 plannerRouter.post("/", checkPlannerSchema, detectBadRequest, async (req, res, next) => {
   try {
-    const newPlanner = { ...req.body, id: uniqid(), createdAt: new Date(), updatedAt: new Date() };
+    const newPlanner = { ...req.body, id: uniqid(), tasks: [], createdAt: new Date(), updatedAt: new Date() };
     const Planners = await getPlanners();
 
     // const tasks = await getTasks();
@@ -32,8 +32,9 @@ plannerRouter.get("/", async (req, res, next) => {
       const taskID = tasks.filter((tas) => tas.plannerId === planner.id);
 
       if (taskID.length) {
+        const undoneTask = taskID.filter((task) => task.done === false);
         const newTask = { tasks: taskID };
-        const newplanner = { ...planner, tasks: taskID };
+        const newplanner = { ...planner, tasks: undoneTask };
         //Planners.push(planner);
         Planners[index] = newplanner;
       }
