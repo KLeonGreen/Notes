@@ -3,11 +3,14 @@ import plannerRouter from "./api/planner/planner.js";
 import taskRouter from "./api/task/task.js";
 import listEndpoints from "list-endpoints-express";
 import { badRequest, unauthorizedHandler, notFoundHandler, genericHandler } from "./errorsHandler.js";
+import cors from "cors";
 
 const server = express();
 const port = 3000;
 
 server.use(express.json());
+
+server.use(cors());
 
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);

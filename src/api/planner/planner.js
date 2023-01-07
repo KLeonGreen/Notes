@@ -56,8 +56,12 @@ plannerRouter.get("/:id", async (req, res, next) => {
     const tasksSameId = tasks.filter((task) => task.plannerId === id);
 
     const foundPlanner = Planners.find((planner) => planner.id === id);
-    const foundPlannerWithtask = { ...foundPlanner, tasks: tasksSameId };
-    res.status(200).send(foundPlannerWithtask);
+    if (tasksSameId.length) {
+      const foundPlannerWithtask = { ...foundPlanner, tasks: tasksSameId };
+      res.status(200).send(foundPlannerWithtask);
+    } else {
+      res.status(200).send(foundPlanner);
+    }
   } catch (error) {
     next(error);
   }
