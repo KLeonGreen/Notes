@@ -15,7 +15,7 @@ server.use(
   cors({
     origin: (origin, corsNext) => {
       console.log("CORS Origin: ", origin);
-      if (allowedorigins.indexOf(origin) !== -1) {
+      if (!origin || allowedorigins.indexOf(origin) !== -1) {
         corsNext(null, true);
       } else {
         corsNext(createHttpError(400, `origin ${origin} not allowed`));
@@ -26,6 +26,7 @@ server.use(
 // server.use(cors());
 
 server.use(express.json());
+
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);
 
