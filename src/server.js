@@ -9,8 +9,6 @@ import createHttpError from "http-errors";
 const server = express();
 const port = process.env.PORT;
 
-server.use(express.json());
-
 const allowedorigins = [process.env.FE_DEV_URL];
 
 server.use(
@@ -27,6 +25,7 @@ server.use(
 );
 // server.use(cors());
 
+server.use(express.json());
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);
 
