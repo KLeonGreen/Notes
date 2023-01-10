@@ -11,20 +11,21 @@ const port = process.env.PORT;
 
 server.use(express.json());
 
-const allowedorigins = ["http://localhost:3001", "http://localhost:3002"];
+const allowedorigins = [process.env.FE_DEV_URL];
 
-server.use(
-  cors({
-    origin: (origin, corsNext) => {
-      console.log("CORS Origin: ", origin);
-      if (allowedorigins.indexOf(origin) !== -1) {
-        corsNext(null, true);
-      } else {
-        corsNext(createHttpError(400, `origin ${origin} not allowed`));
-      }
-    },
-  })
-);
+// server.use(
+//   cors({
+//     origin: (origin, corsNext) => {
+//       console.log("CORS Origin: ", origin);
+//       if (allowedorigins.indexOf(origin) !== -1) {
+//         corsNext(null, true);
+//       } else {
+//         corsNext(createHttpError(400, `origin ${origin} not allowed`));
+//       }
+//     },
+//   })
+// );
+server.use(cors());
 
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);
