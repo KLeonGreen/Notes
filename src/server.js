@@ -16,6 +16,7 @@ const allowedorigins = ["http://localhost:3001", "http://localhost:3002"];
 server.use(
   cors({
     origin: (origin, corsNext) => {
+      console.log("CORS Origin: ", origin);
       if (allowedorigins.indexOf(origin) !== -1) {
         corsNext(null, true);
       } else {
