@@ -5,6 +5,7 @@ import listEndpoints from "list-endpoints-express";
 import { badRequest, unauthorizedHandler, notFoundHandler, genericHandler } from "./errorsHandler.js";
 import cors from "cors";
 import createHttpError from "http-errors";
+import filesRouter from "./api/files/index.js";
 
 const server = express();
 const port = process.env.PORT;
@@ -29,6 +30,7 @@ server.use(express.json());
 
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);
+server.use("/planner", filesRouter);
 
 server.use(badRequest);
 server.use(unauthorizedHandler);

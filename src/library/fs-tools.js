@@ -1,11 +1,11 @@
 import fs from "fs-extra";
-
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
 const { writeFile, readJSON, writeJSON } = fs;
 
 const dataPath = join(dirname(fileURLToPath(import.meta.url)), "../data");
+const publicPath = join(process.cwd(), "./public/image");
 const plannerPath = join(dataPath, "planner.json");
 const tasksPath = join(dataPath, "task.json");
 
@@ -24,4 +24,8 @@ export const writePlanners = (planners) => {
 };
 export const writeTasks = (tasks) => {
   return writeJSON(tasksPath, tasks);
+};
+
+export const saveFile = (fileName, buffer) => {
+  writeFile(join(publicPath, fileName), buffer);
 };
