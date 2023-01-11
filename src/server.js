@@ -9,7 +9,7 @@ import createHttpError from "http-errors";
 const server = express();
 const port = process.env.PORT;
 
-const allowedorigins = [process.env.FE_DEV_URL];
+const allowedorigins = [process.env.FE_DEV_URL, process.env.FE_PROD_URL];
 
 server.use(
   cors({
