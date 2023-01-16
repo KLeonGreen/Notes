@@ -2,6 +2,7 @@ import express from "express";
 import uniqid from "uniqid";
 import { getTasks, getPlanners, writePlanners } from "../../library/fs-tools.js";
 import { checkPlannerSchema, detectBadRequest } from "./validator.js";
+import { sendEmailConfirmation } from "../../library/email-tools.js";
 
 const plannerRouter = express.Router();
 
@@ -17,6 +18,9 @@ plannerRouter.post("/", checkPlannerSchema, detectBadRequest, async (req, res, n
 
     Planners.push(newPlanner);
     writePlanners(Planners);
+
+    const email = "kwizeramagnificat@gmail.com";
+    await sendEmailConfirmation(email);
     res.status(201).send(newPlanner);
   } catch (error) {
     next(error);

@@ -24,26 +24,26 @@ taskRouter.post("/:id", checkTasksSchema, detectBadRequest, async (req, res, nex
   }
 });
 
-taskRouter.get("/", async (req, res, next) => {
-  try {
-    const tasks = await getTasks();
-    const undoneTask = tasks.filter((task) => task.done === false);
-    res.status(200).send(undoneTask);
-  } catch (error) {
-    next(error);
-  }
-});
+// taskRouter.get("/", async (req, res, next) => {
+//   try {
+//     const tasks = await getTasks();
+//     const undoneTask = tasks.filter((task) => task.done === false);
+//     res.status(200).send(undoneTask);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
-taskRouter.get("/:id", async (req, res, next) => {
-  try {
-    const tasks = await getTasks();
-    const id = req.params.id;
-    const selectedTask = tasks.find((task) => task.id === id);
-    res.status(200).send(selectedTask);
-  } catch (error) {
-    next(error);
-  }
-});
+// taskRouter.get("/:id", async (req, res, next) => {
+//   try {
+//     const tasks = await getTasks();
+//     const id = req.params.id;
+//     const selectedTask = tasks.find((task) => task.id === id);
+//     res.status(200).send(selectedTask);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 taskRouter.put("/:id", async (req, res, next) => {
   try {

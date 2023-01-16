@@ -15,7 +15,7 @@ const allowedorigins = [process.env.FE_DEV_URL, process.env.FE_PROD_URL];
 server.use(
   cors({
     origin: (origin, corsNext) => {
-      console.log("CORS Origin: ", origin);
+      // console.log("CORS Origin: ", origin);
       if (!origin || allowedorigins.indexOf(origin) !== -1) {
         corsNext(null, true);
       } else {
@@ -30,7 +30,7 @@ server.use(express.json());
 
 server.use("/planner", plannerRouter);
 server.use("/task", taskRouter);
-server.use("/planner", filesRouter);
+server.use("/planners", filesRouter);
 
 server.use(badRequest);
 server.use(unauthorizedHandler);
